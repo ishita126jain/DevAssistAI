@@ -1,0 +1,9 @@
+gRPC is a modern high-performance Remote Procedure Call framework developed by Google.
+
+It uses Protocol Buffers (protobuf) for serialization.
+
+gRPC uses HTTP/2 for communication.
+
+It supports bi-directional streaming.
+
+It is commonly used in microservices and distributed systems.

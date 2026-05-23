@@ -1,0 +1,5 @@
+SQL is a language used to interact with relational databases.
+
+Common SQL operations include SELECT, INSERT, UPDATE, and DELETE.
+
+SQL Server is Microsoft's relational database system.

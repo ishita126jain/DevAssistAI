@@ -1,3 +1,6 @@
+using DevAssistAI.Service.Contract;
+using DevAssistAI.Service.Operation;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddScoped<IAIService, AIService>();
+builder.Services.AddSingleton<IChatMemoryService, ChatMemoryService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

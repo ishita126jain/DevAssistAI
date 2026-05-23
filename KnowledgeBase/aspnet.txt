@@ -1,0 +1,5 @@
+ASP.NET Core is a modern cross-platform web framework developed by Microsoft.
+
+It is used to build APIs, web apps, and microservices.
+
+ASP.NET Core supports dependency injection and middleware architecture.

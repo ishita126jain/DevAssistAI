@@ -2,6 +2,6 @@
 {
     public class AIRequest
     {
-        public string? Question { get; set; }
+        public string? Prompt { get; set; }
     }
 }
