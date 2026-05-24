@@ -1,0 +1,14 @@
+Redis is an in-memory key-value database.
+
+Redis is commonly used for:
+- Caching
+- Session storage
+- Pub/Sub messaging
+- Distributed locking
+
+Benefits:
+- Extremely fast
+- Reduces database load
+- Improves application performance
+
+ASP.NET Core applications commonly use Redis for distributed caching.

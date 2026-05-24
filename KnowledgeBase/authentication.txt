@@ -1,0 +1,12 @@
+Authentication verifies the identity of a user.
+
+Authorization determines what a user is allowed to access.
+
+Common authentication methods:
+- JWT Authentication
+- OAuth
+- Cookie Authentication
+
+JWT tokens are widely used in ASP.NET Core APIs.
+
+Authentication middleware validates incoming tokens before allowing access.

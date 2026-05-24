@@ -1,0 +1,18 @@
+Docker is a containerization platform.
+
+Docker allows applications to run consistently across different environments.
+
+Main Docker concepts:
+- Images
+- Containers
+- Dockerfile
+- Volumes
+- Networks
+
+Benefits of Docker:
+- Easy deployment
+- Environment consistency
+- Scalability
+- Isolation
+
+ASP.NET Core applications are commonly deployed using Docker containers.

@@ -1,9 +1,15 @@
-gRPC is a modern high-performance Remote Procedure Call framework developed by Google.
+gRPC is a high-performance Remote Procedure Call framework developed by Google.
 
-It uses Protocol Buffers (protobuf) for serialization.
+It allows communication between microservices using HTTP/2.
 
-gRPC uses HTTP/2 for communication.
+gRPC uses Protocol Buffers (protobuf) for fast serialization.
 
-It supports bi-directional streaming.
+Benefits of gRPC:
+- Faster than REST
+- Strongly typed contracts
+- Supports streaming
+- Cross-platform communication
 
-It is commonly used in microservices and distributed systems.
+In ASP.NET Core, gRPC services are created using .proto files and service contracts.
+
+gRPC is commonly used in microservices and distributed systems.

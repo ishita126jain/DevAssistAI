@@ -1,5 +1,13 @@
-ASP.NET Core is a modern cross-platform web framework developed by Microsoft.
+ASP.NET Core is a cross-platform framework developed by Microsoft for building web applications and APIs.
 
-It is used to build APIs, web apps, and microservices.
+Features:
+- Dependency Injection
+- Middleware pipeline
+- Minimal APIs
+- Authentication and Authorization
+- Logging
+- Configuration management
 
-ASP.NET Core supports dependency injection and middleware architecture.
+ASP.NET Core supports REST APIs, SignalR, gRPC, and microservices architecture.
+
+Kestrel is the default web server used in ASP.NET Core.

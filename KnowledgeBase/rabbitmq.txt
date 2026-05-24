@@ -1,0 +1,17 @@
+RabbitMQ is a message broker used for asynchronous communication.
+
+RabbitMQ helps decouple services in distributed systems.
+
+Concepts:
+- Producer
+- Consumer
+- Queue
+- Exchange
+- Routing key
+
+Benefits:
+- Reliable messaging
+- Retry mechanisms
+- Better scalability
+
+RabbitMQ is commonly used in microservices architecture.

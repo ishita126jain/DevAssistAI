@@ -1,0 +1,14 @@
+Entity Framework Core is an ORM developed by Microsoft.
+
+ORM stands for Object Relational Mapper.
+
+EF Core allows developers to interact with databases using C# objects instead of writing raw SQL queries.
+
+Features:
+- LINQ queries
+- Migrations
+- Change tracking
+- Relationships
+- Lazy loading
+
+EF Core supports SQL Server, PostgreSQL, MySQL, and SQLite.

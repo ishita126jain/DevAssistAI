@@ -1,0 +1,11 @@
+SignalR is a real-time communication library in ASP.NET Core.
+
+SignalR allows servers to push updates to connected clients instantly.
+
+Use cases:
+- Chat applications
+- Live dashboards
+- Notifications
+- Multiplayer games
+
+SignalR supports WebSockets and fallback transport mechanisms.

@@ -1,5 +1,13 @@
-SQL is a language used to interact with relational databases.
+SQL stands for Structured Query Language.
 
-Common SQL operations include SELECT, INSERT, UPDATE, and DELETE.
+SQL is used to communicate with relational databases like SQL Server, MySQL, and PostgreSQL.
 
-SQL Server is Microsoft's relational database system.
+Common SQL operations:
+- SELECT
+- INSERT
+- UPDATE
+- DELETE
+
+SQL supports joins, indexing, stored procedures, and transactions.
+
+In ASP.NET Core, SQL databases are commonly accessed using Entity Framework Core or Dapper.

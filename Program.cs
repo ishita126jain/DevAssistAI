@@ -11,6 +11,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<IAIService, AIService>();
 builder.Services.AddSingleton<IChatMemoryService, ChatMemoryService>();
+builder.Services.AddSingleton<IVectorStoreService, VectorStoreService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

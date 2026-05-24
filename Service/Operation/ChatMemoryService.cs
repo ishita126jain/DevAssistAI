@@ -14,6 +14,10 @@ namespace DevAssistAI.Service.Operation
 
         public void AddMessage(ChatMessage message)
         {
+            if (message.Role == "system")
+            {
+                return;
+            }
             _chatHistory.Add(message);
         }
         public void ClearChatHistory()

@@ -31,5 +31,19 @@ namespace DevAssistAI.Controllers
             string response = await _aiService.ChatAI(request);
             return Ok(response);
         }
+
+        [HttpPost("ragChat")]
+        public async Task<IActionResult> RagChat([FromBody] AIRequest request)
+        {
+            string response = await _aiService.RagChat(request);
+            return Ok(response);
+        }
+
+        [HttpPost("semanticRAG")]
+        public async Task<IActionResult> SemanticRAG([FromBody] AIRequest request)
+        {
+            string response = await _aiService.SemanticRAG(request);
+            return Ok(response);
+        }
     }
 }

@@ -1,0 +1,16 @@
+Microservices architecture is a design approach where applications are divided into small independent services.
+
+Each microservice:
+- Has its own responsibility
+- Can be deployed independently
+- Communicates through APIs or messaging systems
+
+Benefits:
+- Scalability
+- Faster deployments
+- Better maintainability
+
+Common communication methods:
+- REST
+- gRPC
+- Message brokers like RabbitMQ or Kafka
