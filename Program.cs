@@ -1,3 +1,5 @@
+using DevAssistAI.MCP.Contact;
+using DevAssistAI.MCP.Operation;
 using DevAssistAI.Service.Contract;
 using DevAssistAI.Service.Operation;
 
@@ -12,6 +14,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddScoped<IAIService, AIService>();
 builder.Services.AddSingleton<IChatMemoryService, ChatMemoryService>();
 builder.Services.AddSingleton<IVectorStoreService, VectorStoreService>();
+builder.Services.AddSingleton<IMCPTool, SQLTool>();
+builder.Services.AddSingleton<IMCPRouterService, MCPRouterSevice>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -1,4 +1,5 @@
-﻿using DevAssistAI.Model;
+﻿using DevAssistAI.MCP.Contact;
+using DevAssistAI.Model;
 using DevAssistAI.Service.Contract;
 using System.Text;
 using System.Text.Json;
@@ -12,13 +13,15 @@ namespace DevAssistAI.Service.Operation
         private readonly IConfiguration _configuration;
         private readonly IChatMemoryService _chatMemoryService;
         private readonly IVectorStoreService _vectorStoreService;
+        private readonly IMCPRouterService _mcpRouterService;
 
-        public AIService(IHttpClientFactory httpClientFactory, IConfiguration configuration, IChatMemoryService chatMemoryService, IVectorStoreService vectorStoreService)
+        public AIService(IHttpClientFactory httpClientFactory, IConfiguration configuration, IChatMemoryService chatMemoryService, IVectorStoreService vectorStoreService, IMCPRouterService mcpRouterService)
         {
             _httpClient = httpClientFactory.CreateClient();
             _configuration = configuration;
             _chatMemoryService = chatMemoryService;
             _vectorStoreService = vectorStoreService;
+            _mcpRouterService = mcpRouterService;
         }
         public async Task<string> AskAI(AIRequest request)
         {
@@ -211,6 +214,8 @@ namespace DevAssistAI.Service.Operation
             }
             string relevantContext = contextBuilder.ToString();
 
+            string? toolResponse = await _mcpRouterService.Route(request.Prompt ?? string.Empty);
+
             List<ChatMessage> chatHistory = _chatMemoryService.GetChatHistory();
 
             List<ChatMessage> message = new List<ChatMessage>();
@@ -225,6 +230,10 @@ namespace DevAssistAI.Service.Operation
                 Use the following knowledge while answering:
                 
                 {relevantContext}
+
+                Tool Information:
+                
+                {toolResponse}   
                
                 Rules:
                 - Explain in simple beginner-friendly language
