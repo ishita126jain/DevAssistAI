@@ -18,23 +18,37 @@ namespace DevAssistAI.Service.Operation
             _logger = logger;
         }
 
-        private async Task<List<float>> GenerateEmbedding(string text, CancellationToken cancellationToken)
+        public async Task<List<float>> GenerateEmbedding(string text, CancellationToken cancellationToken)
         {
-            HttpClient client = _httpClientFactory.CreateClient("OllamaClient");
-
-            EmbeddingRequest request = new()
+            try
             {
-                Model = _configuration["Ollama:EmbeddingModel"] ?? string.Empty,
-                Prompt = text
-            };
+                HttpClient client = _httpClientFactory.CreateClient("OllamaClient");
 
-            StringContent content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(_configuration["Ollama:EmbeddingEndpoint"], content, cancellationToken);
-            response.EnsureSuccessStatusCode();
-            string result = await response.Content.ReadAsStringAsync(cancellationToken);
-            EmbeddingResponse? embeddingResponse = JsonSerializer.Deserialize<EmbeddingResponse>(result);
+                EmbeddingRequest request = new()
+                {
+                    Model = _configuration["Ollama:EmbeddingModel"] ?? string.Empty,
+                    Prompt = text
+                };
 
-            return embeddingResponse?.embedding ?? new List<float>();
+                _logger.LogInformation("Generating embedding");
+
+                StringContent content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(_configuration["Ollama:EmbeddingEndpoint"], content, cancellationToken);
+                response.EnsureSuccessStatusCode();
+                string result = await response.Content.ReadAsStringAsync(cancellationToken);
+                EmbeddingResponse? embeddingResponse = JsonSerializer.Deserialize<EmbeddingResponse>(result);
+
+                _logger.LogInformation("Embedding generated successfully");
+
+                return embeddingResponse?.embedding ?? new List<float>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError( ex, "Failed to generate embedding");
+
+                throw;
+            }
+
         }
     }
 }

@@ -9,6 +9,7 @@ using DevAssistAI.Service.Contract;
 using DevAssistAI.Service.Operation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Polly;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,9 @@ builder.Services.AddHttpClient(
     client =>
     {
         client.Timeout = TimeSpan.FromMinutes(10);
-    });
+    })
+    .AddTransientHttpErrorPolicy(policy => policy.WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))));
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<IAIService, AIService>();
