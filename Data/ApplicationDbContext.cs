@@ -1,4 +1,5 @@
 ﻿using DevAssistAI.Entites;
+using DevAssistAI.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevAssistAI.Data
@@ -11,6 +12,7 @@ namespace DevAssistAI.Data
 
         public DbSet<ChatSession> ChatSessions { get; set; }
         public DbSet<ChatMessages> ChatMessages { get; set; }
+        public DbSet<DocumentChunk> DocumentChunk { get; set; }
 
         protected override void OnModelCreating( ModelBuilder modelBuilder)
         {

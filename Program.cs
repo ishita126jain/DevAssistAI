@@ -30,6 +30,10 @@ builder.Services.AddSingleton<IMCPTool, SQLTool>();
 builder.Services.AddSingleton<IMCPRouterService, MCPRouterSevice>();
 builder.Services.AddScoped<IChatRepository, ChatRepository>();
 builder.Services.AddScoped<IProductionAIService, ProductionAIService>();
+builder.Services.AddScoped<IChunkingService, ChunkingService>();
+builder.Services.AddScoped<IDocumentChunkRepository, DocumentChunkRepository>();
+builder.Services.AddScoped<IRAGService, RAGService>();
+builder.Services.AddScoped<IEmbeddingService, EmbeddingService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

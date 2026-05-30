@@ -2,6 +2,7 @@
 using DevAssistAI.DTO;
 using DevAssistAI.Entites;
 using DevAssistAI.Service.Contract;
+using DevAssistAI.Service.Operation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevAssistAI.Controllers
@@ -11,11 +12,13 @@ namespace DevAssistAI.Controllers
     public class ProductionAIController : ControllerBase
     {
         private readonly IProductionAIService _productionAIService;
+        private readonly IChunkingService _chunkingService;
 
 
-        public ProductionAIController(IProductionAIService productionAIService)
+        public ProductionAIController(IProductionAIService productionAIService, IChunkingService chunkingService)
         {
             _productionAIService = productionAIService;
+            _chunkingService = chunkingService;
         }
 
         [HttpPost]
@@ -53,6 +56,19 @@ namespace DevAssistAI.Controllers
                 Success = true,
                 Message = "Chat messages retrieved successfully",
                 Data = reponse
+            });
+        }
+
+        [HttpPost("process-document")]
+        public async Task<IActionResult> ProcessDocument(CancellationToken cancellationToken)
+        {
+            string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "KnowledgeBase");
+            await _chunkingService.ProcessFolder(folderPath, cancellationToken);
+            return Ok(new ApiResponse<string>
+            {
+                Success = true,
+                Message = "Document processing completed successfully.",
+                Data = null
             });
         }
     }

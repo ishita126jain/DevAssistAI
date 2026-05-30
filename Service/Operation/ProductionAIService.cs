@@ -4,6 +4,7 @@ using DevAssistAI.Exceptions;
 using DevAssistAI.Model;
 using DevAssistAI.Repository.Contract;
 using DevAssistAI.Service.Contract;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Text.Json;
 
@@ -15,13 +16,15 @@ namespace DevAssistAI.Service.Operation
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<ProductionAIService> _logger;
+        private readonly IRAGService _ragService;
 
-        public ProductionAIService(IChatRepository chatRepository, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger<ProductionAIService> logger)
+        public ProductionAIService(IChatRepository chatRepository, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger<ProductionAIService> logger, IRAGService ragService)
         {
             _chatRepository = chatRepository;
             _configuration = configuration;
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+            _ragService = ragService;
         }
         public async Task<ProductionChatResponse> Chat(ProductionChatRequest request, CancellationToken cancellationToken)
         {
@@ -67,18 +70,32 @@ namespace DevAssistAI.Service.Operation
             //Load Chat History
             List<ChatMessages> history = await _chatRepository.GetSessionMessage(sessionId);
 
+            //RAG Context
+            List<RetrievedChunk> chunks = await _ragService.GetRelevantContext(request.Prompt, cancellationToken);
+
+            string context = string.Join(Environment.NewLine + Environment.NewLine, chunks.Select(x => x.Content));
+
+            List<string> sources = chunks.Select(x => x.FileName).Distinct().ToList();
+
             //Add System Prompt
             List<object> messages = new();
 
             messages.Add(new
             {
                 role = "system",
-                content = @"
+                content = $@"
                 You are an expert .NET and Generative AI mentor.
                 
-                Explain in beginner-friendly language.
+                Use the following knowledge base context when relevant:
                 
-                Keep responses structured and practical.
+                {context}
+                
+                Rules:
+                - Answer only using the provided context when possible
+                - If context is insufficient, clearly mention it
+                - Explain in beginner-friendly language
+                - Give practical examples
+                - Keep responses structured
                 "
             });
 
@@ -124,7 +141,8 @@ namespace DevAssistAI.Service.Operation
             return new ProductionChatResponse
             {
                 SessionId = sessionId,
-                Response = chatResponse?.message?.content ?? "No response"
+                Response = chatResponse?.message?.content ?? "No response",
+                Sources = sources
             };
         }
 
